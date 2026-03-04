@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tugas Praktik Web - Form Biodata</title>
+    <title>Form Biodata</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #764ba2 0%,  #0c279f 100%);
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -26,44 +26,147 @@
             margin: 0 auto;
         }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
+    /* Header */
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, #764ba2 0%,  #0c279f 100%);
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(255, 255, 255);
+}
 
-        .header h1 {
-            color: #4a5568;
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
+/* Efek background berkilau */
+.header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+    animation: shimmer 8s ease-in-out infinite;
+    pointer-events: none;
+}
 
-        .header p {
-            color: #718096;
-            font-size: 18px;
-        }
+@keyframes shimmer {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+    50% { transform: translate(5%, 5%) rotate(5deg); opacity: 0.8; }
+    100% { transform: translate(0, 0) rotate(0deg); opacity: 0.5; }
+}
 
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-top: 15px;
-            font-size: 14px;
-        }
+/* Ikon dekoratif */
+.header::after {
+    content: '✦';
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.1);
+    font-weight: normal;
+    transform: rotate(15deg);
+    pointer-events: none;
+}
 
-        /* Form Biodata untuk Soal 3 */
+.header h1 {
+    color: white;
+    font-size: 35px;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    position: relative;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+/* Garis dekoratif bawah judul */
+.header h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, white, transparent);
+    border-radius: 3px;
+}
+
+.header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+/* Badge di-upgrade */
+.badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Tambahan efek partikel kecil */
+.header .floating-icon {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+}
+
+.header .icon-1 {
+    top: 20px;
+    left: 30px;
+    animation-delay: 0s;
+}
+
+.header .icon-2 {
+    bottom: 20px;
+    right: 50px;
+    animation-delay: -2s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+        /* Form Biodata */
         .form-section {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+             max-width: 550px;  /* ← TAMBAHKAN INI */
+    margin-left: auto; /* ← TAMBAHKAN INI */
+    margin-right: auto; /* ← TAMBAHKAN INI */
         }
 
         .form-section h2 {
@@ -368,9 +471,11 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
+            <div class="floating-icon icon-1">⚡</div>
+    <div class="floating-icon icon-2">✨</div>
             <h1>📋 Tugas Praktik Pemrograman Web</h1>
-            <p>Kelas XI TKJ • Form Biodata dengan Perhitungan Umur</p>
-            <span class="badge">✨ Hosted on GitHub Pages ✨</span>
+            <p>Form Biodata dengan Perhitungan Umur</p>
+            <span class="badge">✨ Kelas XI TKJ ✨</span>
         </div>
 
         <!-- Form Biodata untuk Soal 3 (JavaScript) -->
