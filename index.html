@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Biodata Siswa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Container utama */
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Judul */
+        h2 {
+            color: #4a5568;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* Form */
+        form {
+            margin-bottom: 30px;
+        }
+
+        /* Label diganti dengan placeholder yang cantik */
+        input, textarea {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input:hover, textarea:hover {
+            border-color: #764ba2;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Input date styling */
+        input[type="date"] {
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Button */
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Garis pemisah */
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #667eea);
+            margin: 40px 0;
+            opacity: 0.2;
+        }
+
+        /* Hasil Data */
+        h3 {
+            color: #4a5568;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .hasil-data {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            animation: fadeIn 0.8s ease-out;
+            display: none;
+        }
+
+        .hasil-data.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hasil-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .hasil-label {
+            min-width: 120px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .hasil-value {
+            color: #2d3748;
+            flex: 1;
+        }
+
+        /* Umur special styling */
+        .umur-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+            margin-left: 10px;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            .hasil-item {
+                flex-direction: column;
+            }
+
+            .hasil-label {
+                margin-bottom: 5px;
+            }
+        }
+
+        /* Animasi loading untuk hasil */
+        .hasil-data {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hasil-data::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            animation: loading 1.5s ease-in-out infinite;
+            display: none;
+        }
+
+        .hasil-data.show::before {
+            display: block;
+        }
+
+        @keyframes loading {
+            to {
+                left: 100%;
+            }
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            color: #a0aec0;
+            padding: 40px 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>✨ Form Biodata Siswa ✨</h2>
+
+        <form id="biodataForm">
+            <input type="text" id="nama" placeholder="Nama Lengkap" required>
+            <input type="text" id="kelas" placeholder="Kelas" required>
+            <textarea id="alamat" placeholder="Alamat Lengkap" required></textarea>
+            <input type="date" id="tanggalLahir" required>
+            <button type="submit" id="simpanBtn">💾 Simpan Data</button>
+        </form>
+
+        <hr>
+
+        <div id="hasilContainer">
+            <h3>📋 Hasil Data</h3>
+            <div class="empty-state" id="emptyState">
+                Belum ada data. Silakan isi form di atas!
+            </div>
+            <div class="hasil-data" id="hasilData">
+                <div class="hasil-item">
+                    <span class="hasil-label">Nama</span>
+                    <span class="hasil-value" id="hasilNama">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Kelas</span>
+                    <span class="hasil-value" id="hasilKelas">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Alamat</span>
+                    <span class="hasil-value" id="hasilAlamat">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Tanggal Lahir</span>
+                    <span class="hasil-value" id="hasilTanggal">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Umur</span>
+                    <span class="hasil-value">
+                        <span class="umur-badge" id="hasilUmur">0 tahun</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('biodataForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Mencegah form refresh halaman
+
+            // Ambil nilai dari form
+            const nama = document.getElementById('nama').value;
+            const kelas = document.getElementById('kelas').value;
+            const alamat = document.getElementById('alamat').value;
+            const tanggalLahir = document.getElementById('tanggalLahir').value;
+
+            // Validasi sederhana
+            if (!nama || !kelas || !alamat || !tanggalLahir) {
+                alert('Harap isi semua field!');
+                return;
+            }
+
+            // Hitung umur
+            const tanggalLahirObj = new Date(tanggalLahir);
+            const hariIni = new Date();
+            let umur = hariIni.getFullYear() - tanggalLahirObj.getFullYear();
+            
+            // Cek apakah sudah lewat ulang tahun tahun ini
+            const bulanIni = hariIni.getMonth();
+            const tanggalIni = hariIni.getDate();
+            const bulanLahir = tanggalLahirObj.getMonth();
+            const tanggalLahirDate = tanggalLahirObj.getDate();
+            
+            if (bulanIni < bulanLahir || (bulanIni === bulanLahir && tanggalIni < tanggalLahirDate)) {
+                umur--;
+            }
+
+            // Format tanggal lahir jadi lebih cantik
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const tanggalFormatted = tanggalLahirObj.toLocaleDateString('id-ID', options);
+
+            // Tampilkan hasil
+            document.getElementById('hasilNama').textContent = nama;
+            document.getElementById('hasilKelas').textContent = kelas;
+            document.getElementById('hasilAlamat').textContent = alamat;
+            document.getElementById('hasilTanggal').textContent = tanggalFormatted;
+            document.getElementById('hasilUmur').textContent = umur + ' tahun';
+
+            // Sembunyikan empty state, tampilkan hasil
+            document.getElementById('emptyState').style.display = 'none';
+            document.getElementById('hasilData').classList.add('show');
+
+            // Optional: Scroll ke hasil
+            document.getElementById('hasilContainer').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Reset form (opsional)
+        document.getElementById('biodataForm').addEventListener('reset', function() {
+            document.getElementById('hasilData').classList.remove('show');
+            document.getElementById('emptyState').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
