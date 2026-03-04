@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas Praktik Web - Form Biodata</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 18px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Form Biodata untuk Soal 3 */
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .form-section h2 {
+            color: #4a5568;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .form-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        form button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .hasil-data {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px solid #e2e8f0;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .hasil-data.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hasil-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .hasil-label {
+            min-width: 120px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .hasil-value {
+            color: #2d3748;
+            flex: 1;
+        }
+
+        .umur-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+        }
+
+        /* Gallery Screenshot */
+        .gallery-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .gallery-section h2 {
+            color: #4a5568;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .gallery-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .soal-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            padding: 12px 40px;
+            background: rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: transparent;
+            color: white;
+        }
+
+        .soal-content {
+            display: none;
+        }
+
+        .soal-content.active {
+            display: block;
+        }
+
+        .soal-content h3 {
+            color: #4a5568;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .screenshot-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #e2e8f0;
+            background: #f7fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screenshot-img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .screenshot-card p {
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: #4a5568;
+            background: #f7fafc;
+        }
+
+        .screenshot-desc {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 5px;
+            font-weight: normal;
+        }
+
+        /* Repository Info */
+        .repo-info {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .repo-info h4 {
+            color: #4a5568;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .repo-info pre {
+            background: #2d3748;
+            color: #a0eec0;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .repo-info a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .repo-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 50px;
+        }
+
+        /* Loading placeholder untuk gambar */
+        .img-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            color: #4a5568;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📋 Tugas Praktik Pemrograman Web</h1>
+            <p>Kelas XI TKJ • Form Biodata dengan Perhitungan Umur</p>
+            <span class="badge">✨ Hosted on GitHub Pages ✨</span>
+        </div>
+
+        <!-- Form Biodata untuk Soal 3 (JavaScript) -->
+        <div class="form-section">
+            <h2>✨ Form Biodata Siswa ✨</h2>
+            <form id="biodataForm">
+                <input type="text" id="nama" placeholder="Nama Lengkap" required>
+                <input type="text" id="kelas" placeholder="Kelas" required>
+                <textarea id="alamat" placeholder="Alamat Lengkap" required></textarea>
+                <input type="date" id="tanggalLahir" required>
+                <button type="submit" id="simpanBtn">💾 Simpan Data</button>
+            </form>
+
+            <div id="hasilData" class="hasil-data">
+                <h3 style="margin-bottom: 20px;">📋 Hasil Data</h3>
+                <div class="hasil-item">
+                    <span class="hasil-label">Nama</span>
+                    <span class="hasil-value" id="hasilNama">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Kelas</span>
+                    <span class="hasil-value" id="hasilKelas">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Alamat</span>
+                    <span class="hasil-value" id="hasilAlamat">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Tanggal Lahir</span>
+                    <span class="hasil-value" id="hasilTanggal">-</span>
+                </div>
+                <div class="hasil-item">
+                    <span class="hasil-label">Umur</span>
+                    <span class="hasil-value">
+                        <span class="umur-badge" id="hasilUmur">0 tahun</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Screenshot Soal 1 & 2 -->
+        <div class="gallery-section">
+            <h2>📸 Lampiran Screenshot</h2>
+            
+            <!-- Tabs untuk Soal 1 dan 2 -->
+            <div class="soal-tabs">
+                <button class="tab-btn active" onclick="showSoal('soal1')">📁 Soal 1 (XAMPP)</button>
+                <button class="tab-btn" onclick="showSoal('soal2')">⚡ Soal 2 (Laragon)</button>
+            </div>
+
+            <!-- Soal 1 - XAMPP -->
+            <div id="soal1" class="soal-content active">
+                <h3>🔵 XAMPP - Soal 1</h3>
+                <div class="screenshot-grid">
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/xampp1.png" alt="XAMPP Server Running" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>xampp1.png</text></svg>'">
+                        </div>
+                        <p>1. Tampilan Server Running<br><span class="screenshot-desc">XAMPP Control Panel aktif</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/xampp2.png" alt="Struktur Folder" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>xampp2.png</text></svg>'">
+                        </div>
+                        <p>2. Struktur Folder Project<br><span class="screenshot-desc">di dalam htdocs</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/xampp3.png" alt="Source Code PHP" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>xampp3.png</text></svg>'">
+                        </div>
+                        <p>3. Source Code PHP<br><span class="screenshot-desc">Kode program form biodata</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/xampp4.png" alt="Form Sebelum Diisi" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>xampp4.png</text></svg>'">
+                        </div>
+                        <p>4. Tampilan Form<br><span class="screenshot-desc">Sebelum diisi</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/xampp5.png" alt="Hasil Setelah Simpan" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>xampp5.png</text></svg>'">
+                        </div>
+                        <p>5. Tampilan Hasil<br><span class="screenshot-desc">Setelah tombol simpan ditekan</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soal 2 - Laragon -->
+            <div id="soal2" class="soal-content">
+                <h3>🟢 Laragon - Soal 2</h3>
+                <div class="screenshot-grid">
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/laragon1.png" alt="Laragon Server Running" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>laragon1.png</text></svg>'">
+                        </div>
+                        <p>1. Tampilan Server Running<br><span class="screenshot-desc">Laragon aktif</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/laragon2.png" alt="Struktur Folder" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>laragon2.png</text></svg>'">
+                        </div>
+                        <p>2. Struktur Folder Project<br><span class="screenshot-desc">di dalam www</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/laragon3.png" alt="Source Code PHP" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>laragon3.png</text></svg>'">
+                        </div>
+                        <p>3. Source Code PHP<br><span class="screenshot-desc">Kode program form biodata</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/laragon4.png" alt="Form Sebelum Diisi" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>laragon4.png</text></svg>'">
+                        </div>
+                        <p>4. Tampilan Form<br><span class="screenshot-desc">Sebelum diisi</span></p>
+                    </div>
+                    <div class="screenshot-card">
+                        <div class="screenshot-img">
+                            <img src="images/laragon5.png" alt="Hasil Setelah Simpan" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' viewBox=\'0 0 100 100\'><rect width=\'100\' height=\'100\' fill=\'%23667eea20\'/><text x=\'50\' y=\'50\' font-family=\'Arial\' font-size=\'12\' fill=\'%234a5568\' text-anchor=\'middle\' dominant-baseline=\'middle\'>laragon5.png</text></svg>'">
+                        </div>
+                        <p>5. Tampilan Hasil<br><span class="screenshot-desc">Dengan perhitungan umur</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informasi Repository GitHub -->
+            <div class="repo-info">
+                <p><strong>Struktur Folder:</strong></p>
+                <pre>
+biodata-tugas-web/
+├── index.html
+├── images/
+│   ├── xampp1.png
+│   ├── xampp2.png
+│   ├── xampp3.png
+│   ├── xampp4.png
+│   ├── xampp5.png
+│   ├── laragon1.png
+│   ├── laragon2.png
+│   ├── laragon3.png
+│   ├── laragon4.png
+│   └── laragon5.png
+└── README.md
+                </pre>
+                
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2026 - Firda Ayu Az-Zahwa | Kelas XI TKJ</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript untuk form biodata (Soal 3)
+        document.getElementById('biodataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const kelas = document.getElementById('kelas').value;
+            const alamat = document.getElementById('alamat').value;
+            const tanggalLahir = document.getElementById('tanggalLahir').value;
+
+            if (!nama || !kelas || !alamat || !tanggalLahir) {
+                alert('Harap isi semua field!');
+                return;
+            }
+
+            // Hitung umur
+            const tanggalLahirObj = new Date(tanggalLahir);
+            const hariIni = new Date();
+            let umur = hariIni.getFullYear() - tanggalLahirObj.getFullYear();
+            
+            const bulanIni = hariIni.getMonth();
+            const tanggalIni = hariIni.getDate();
+            const bulanLahir = tanggalLahirObj.getMonth();
+            const tanggalLahirDate = tanggalLahirObj.getDate();
+            
+            if (bulanIni < bulanLahir || (bulanIni === bulanLahir && tanggalIni < tanggalLahirDate)) {
+                umur--;
+            }
+
+            // Format tanggal
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const tanggalFormatted = tanggalLahirObj.toLocaleDateString('id-ID', options);
+
+            // Tampilkan hasil
+            document.getElementById('hasilNama').textContent = nama;
+            document.getElementById('hasilKelas').textContent = kelas;
+            document.getElementById('hasilAlamat').textContent = alamat;
+            document.getElementById('hasilTanggal').textContent = tanggalFormatted;
+            document.getElementById('hasilUmur').textContent = umur + ' tahun';
+
+            document.getElementById('hasilData').classList.add('show');
+        });
+
+        // Fungsi untuk switch tab Soal 1 dan Soal 2
+        function showSoal(soalId) {
+            // Sembunyikan semua konten
+            document.querySelectorAll('.soal-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Nonaktifkan semua tab button
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Tampilkan konten yang dipilih
+            document.getElementById(soalId).classList.add('active');
+            
+            // Aktifkan tab button yang diklik
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
